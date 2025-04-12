@@ -2,18 +2,16 @@ import streamlit as st
 import pandas as pd
 from utils import load_data, filter_videos, get_youtube_embed_html
 import os
+from PIL import Image
 
 # 페이지 설정
 st.set_page_config(
-    page_title="YouTube Gallery",
-    page_icon="🎬",
+    page_title="YouTube Prediction Result",
     layout="wide"
 )
-
 # 앱 제목
-st.title("🎬 YouTube Gallery")
-st.write("선호하는 인구 그룹(성별 및 연령대)에 따라 YouTube 동영상을 찾아보세요.")
-
+st.title("YouTube Prediction Result")
+st.write("인구 그룹(성별 및 연령대)에 따라 예측된 YouTube 동영상을 보여줍니다.")
 # 데이터 로드
 @st.cache_data
 def get_data():

@@ -36,17 +36,25 @@ def filter_videos(df, age_group=None, gender=None):
     # 점수 계산 컬럼 초기화
     df['score'] = 0
     
-    # 나이 그룹 필터링
-    if age_group:
+    # 나이 그룹과 성별이 모두 선택된 경우
+    if age_group and gender:
         age_column = f'age_{age_group}'
-        if age_column in df.columns:
-            df['score'] += df[age_column]
-    
-    # 성별 필터링
-    if gender:
         gender_column = f'gender_{gender}'
-        if gender_column in df.columns:
-            df['score'] += df[gender_column]
+        if age_column in df.columns and gender_column in df.columns:
+            # 두 점수의 평균을 계산
+            df['score'] = (df[age_column] + df[gender_column]) / 2
+    else:
+        # 나이 그룹 필터링
+        if age_group:
+            age_column = f'age_{age_group}'
+            if age_column in df.columns:
+                df['score'] = df[age_column]
+        
+        # 성별 필터링
+        if gender:
+            gender_column = f'gender_{gender}'
+            if gender_column in df.columns:
+                df['score'] = df[gender_column]
     
     # 점수가 0인 경우 (필터링이 없는 경우) 모든 나이 및 성별 점수의 합으로 계산
     if age_group is None and gender is None:

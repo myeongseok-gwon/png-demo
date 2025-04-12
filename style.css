@@ -1,0 +1,12 @@
+body {
+  background-color: #eee;
+}
+
+.fullScreenFrame > div {
+  display: flex;
+  justify-content: center;
+}
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
