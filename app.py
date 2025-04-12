@@ -60,8 +60,9 @@ if st.sidebar.button("적용"):
     if filtered_videos.empty:
         st.warning("선택한 조건에 맞는 동영상이 없습니다.")
     else:
+        
         # 필터링 결과 표시
-        st.subheader("선택한 조건에 맞는 상위 10개 동영상:")
+        st.subheader(f"{selected_age} {selected_gender} 시청자에게 맞는 상위 10개 동영상:")
         
         # 동영상 표시를 위한 그리드 생성
         cols = st.columns(2)  # 한 행에 2개의 동영상 배치
