@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils import load_data, filter_videos, get_youtube_embed_html
+import utils
 import os
 from PIL import Image
 
@@ -16,8 +16,9 @@ st.write("인구 그룹(성별 및 연령대)에 따라 예측된 YouTube 동영
 @st.cache_data
 def get_data():
     # 현재 디렉토리 기준으로 data 폴더 내의 youtubes.csv 파일 경로 구성
-    data_path = os.path.join("data", "youtubes.csv")
-    return load_data(data_path)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(current_dir, "data", "youtubes.csv")
+    return utils.load_data(data_path)
 
 df = get_data()
 
@@ -53,7 +54,7 @@ gender = gender_options[selected_gender]
 # 필터 적용 버튼
 if st.sidebar.button("적용"):
     # 선택한 필터에 맞게 동영상 필터링
-    filtered_videos = filter_videos(df, age_group, gender)
+    filtered_videos = utils.filter_videos(df, age_group, gender)
     
     # 필터링 결과가 없는 경우
     if filtered_videos.empty:
@@ -75,7 +76,7 @@ if st.sidebar.button("적용"):
                 
                 # YouTube 임베드 코드 생성 및 표시
                 video_id = row['video_id']
-                embed_html = get_youtube_embed_html(video_id)
+                embed_html = utils.get_youtube_embed_html(video_id)
                 st.markdown(embed_html, unsafe_allow_html=True)
                 
                 # 인구통계 점수 표시
